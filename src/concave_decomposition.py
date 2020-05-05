@@ -42,7 +42,4 @@ def decompose(polygon: Polygon):
 
 
 def combine(polygon: Polygon):
-    sub_polys = polygon.get_all_sub_polygons()
-    for sub_poly in sub_polys:
-        print(sub_poly.get_flight_direction_gradient())
     return

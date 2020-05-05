@@ -140,8 +140,6 @@ class PathFinder:
 def find_path(polygon: Polygon, start_point, footprint_width):
     sub_polygons = polygon.get_all_sub_polygons()
 
-    print(len(sub_polygons))
-
     adjacent_matrix = [
         [0 for i in range(len(sub_polygons))]
         for j in range(len(sub_polygons))
@@ -179,7 +177,7 @@ def find_final_path(polygons, path_indices, start_point, footprint_width):
     for path_i in path_indices:
         polygon = polygons[path_i]
 
-        inner_polygon = polygon.get_inner_polygon(footprint_width/2)
+        inner_polygon = polygon.get_inner_polygon(footprint_width / 2)
         if inner_polygon is None:
             continue
 
