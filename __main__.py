@@ -9,6 +9,8 @@ from random import randint
 
 if __name__ == '__main__':
     search_area = Polygon([(1.0, 1.0), (2.0, 2.0), (1.2, 3.4), (4.5, 3.2), (4.0, -1.2)])
+    #search_area = Polygon([[(83, 28), (68, 0), (12, 3), (0, 58), (80, 80)]])
+
 
     decompose(search_area)
     combine(search_area)  # not implemented yet...
