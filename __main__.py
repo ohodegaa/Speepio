@@ -15,6 +15,3 @@ if __name__ == '__main__':
     combine(search_area)  # not implemented yet...
 
     path = find_path(search_area, (1, -1), 1)
-
-    plt.plot(*zip(*path))
-    plt.show()
