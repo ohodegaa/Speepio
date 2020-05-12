@@ -7,7 +7,6 @@ import numpy as np
 def decompose(polygon: Polygon):
     number_of_vertices = len(polygon)
     number_of_concave_vertices = polygon.number_of_concave_vertices
-
     if number_of_concave_vertices == 0:
         return
 
