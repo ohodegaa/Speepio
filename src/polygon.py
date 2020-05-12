@@ -41,6 +41,11 @@ class Polygon:
         if draw:
             plt.show()
 
+    def get_support_points(self):
+        if not self.support_points:
+            self.calculate_width()
+        return self.support_points
+
     def get_support_indices(self):
         if not self.support_indices:
             self.calculate_support_indices()
@@ -70,7 +75,7 @@ class Polygon:
     def split(self, split_line, i):
         vertex = split_line[0]
 
-        intersection = None
+        intersection_at = None
         split_index = None
 
         for j in range(len(self)):
@@ -79,22 +84,22 @@ class Polygon:
             polygon_line = [self[j], self[j + 1]]
             intersects = intersects_at(polygon_line, split_line)
             if intersects is not None:
-                if intersection is None \
-                        or distance_between(intersects, vertex) < distance_between(intersection, vertex):
-                    intersection = intersects
+                if intersection_at is None \
+                        or distance_between(intersects, vertex) < distance_between(intersection_at, vertex):
+                    intersection_at = intersects
                     split_index = j
 
-        if intersection is None:
+        if intersection_at is None:
             return None
 
-        poly1 = [intersection]
+        poly1 = [intersection_at]
         k_1 = i
 
         while k_1 != self.next(split_index):
             poly1.append(self[k_1])
             k_1 = self.next(k_1)
 
-        poly2 = [intersection]
+        poly2 = [intersection_at]
         k_2 = self.next(split_index)
 
         while k_2 != self.next(i):

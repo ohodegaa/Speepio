@@ -140,33 +140,36 @@ class PathFinder:
 def find_path(polygon: Polygon, start_point, footprint_width):
     sub_polygons = polygon.get_all_sub_polygons()
 
-    adjacent_matrix = [
-        [0 for i in range(len(sub_polygons))]
-        for j in range(len(sub_polygons))
-    ]
+    path_indices = [i for i in range(len(sub_polygons))]
 
-    start_index = 0
-    distance_from_start = float("inf")
+    if len(sub_polygons) > 1:
+        adjacent_matrix = [
+            [0 for i in range(len(sub_polygons))]
+            for j in range(len(sub_polygons))
+        ]
 
-    for i in range(len(sub_polygons)):
-        for j in range(len(sub_polygons)):
-            if i == j or adjacent_matrix[i][j] or adjacent_matrix[j][i]:
-                continue
-            intersection_vertices = intersection(sub_polygons[i], sub_polygons[j])
-            if len(intersection_vertices) > 0:
-                adjacent_matrix[i][j] = 1
-                adjacent_matrix[j][i] = 1
-                sub_polygons[i].neighbors.append(sub_polygons[j])
+        start_index = 0
+        distance_from_start = float("inf")
 
-        [[p1, p2], p3] = sub_polygons[i].support_points
+        for i in range(len(sub_polygons)):
+            for j in range(len(sub_polygons)):
+                if i == j or adjacent_matrix[i][j] or adjacent_matrix[j][i]:
+                    continue
+                intersection_vertices = intersection(sub_polygons[i], sub_polygons[j])
+                if len(intersection_vertices) > 0:
+                    adjacent_matrix[i][j] = 1
+                    adjacent_matrix[j][i] = 1
+                    sub_polygons[i].neighbors.append(sub_polygons[j])
 
-        for support_point in [p1, p2, p3]:
-            dist = distance_between(support_point, start_point)
-            if dist < distance_from_start:
-                start_index = i
-                distance_from_start = dist
+            [[p1, p2], p3] = sub_polygons[i].get_support_points()
 
-    path_indices = find_path_indices(adjacent_matrix, start_index)
+            for support_point in [p1, p2, p3]:
+                dist = distance_between(support_point, start_point)
+                if dist < distance_from_start:
+                    start_index = i
+                    distance_from_start = dist
+
+        path_indices = find_path_indices(adjacent_matrix, start_index)
     return find_final_path(sub_polygons, path_indices, start_point, footprint_width)
 
 
@@ -181,7 +184,7 @@ def find_final_path(polygons, path_indices, start_point, footprint_width):
         if inner_polygon is None:
             continue
 
-        [[p1, p2], p3] = polygon.support_points
+        [[p1, p2], p3] = polygon.get_support_points()
         shortest_dist = float("inf")
         direction = "left"
         point_first = False
@@ -234,6 +237,8 @@ class Node:
 
 
 def find_path_indices(adjacent_matrix, start_i):
+    if len(adjacent_matrix) <= 2:
+        return [i for i in range(len(adjacent_matrix))]
     root_node = Node(start_i)
     N = len(adjacent_matrix)
 
