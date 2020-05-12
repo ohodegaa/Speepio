@@ -32,11 +32,11 @@ def create_task():
     req = request.get_json()
     new_path = fromJson(req["path"])
     print(new_path)
-    search_area = Polygon([(83, 28), (68, 0), (12, 3), (0, 58), (80, 80)])
+    #search_area = Polygon([(83, 28), (68, 0), (12, 3), (0, 58), (80, 80)])
     #search_area = Polygon([(1.0, 1.0), (2.0, 2.0), (1.2, 3.4), (4.5, 3.2), (4.0, -1.2)])
     #print([(1.0, 1.0), (2.0, 2.0), (1.2, 3.4), (4.5, 3.2), (4.0, -1.2)])
     #print(newPath)
-    #search_area = Polygon(new_path)
+    search_area = Polygon(new_path)
     decompose(search_area)
     combine(search_area)  # not implemented yet...
     path = find_path(search_area, (1, -1), req["width"])
