@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-ZERO = 1e-2
+ZERO = 1e-1
 
 
 def to_gradient(line):
@@ -31,11 +31,9 @@ def intersects_at(line1, line2):
     D = L1[0] * L2[1] - L1[1] * L2[0]
     Dx = L1[2] * L2[1] - L1[1] * L2[2]
     Dy = L1[0] * L2[2] - L1[2] * L2[0]
-    if abs(D) > ZERO:
+    if abs(D) > 0.0:
         x = Dx / D
         y = Dy / D
-        if np.any([np.isclose([x, y], point) for point in [*line1, *line2]]):
-            return None
         return x, y
     else:
         return None

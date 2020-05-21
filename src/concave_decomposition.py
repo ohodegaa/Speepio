@@ -14,7 +14,6 @@ def decompose(polygon: Polygon):
     for i in polygon.get_concave_vertex_indices():
         for j in range(number_of_vertices):
             vertex_i = polygon[i]
-
             if np.allclose(vertex_i, polygon[j]) \
                     or np.allclose(vertex_i, polygon[j + 1]):
                 continue

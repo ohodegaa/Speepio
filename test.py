@@ -9,9 +9,13 @@ from random import randint
 
 if __name__ == '__main__':
     # search_area = Polygon([(1.0, 1.0), (2.0, 2.0), (1.2, 3.4), (4.5, 3.2), (4.0, -1.2)])
-    search_area = Polygon([(83.0, 28.0), (68.0, 0.0), (12.0, 3.0), (0.0, 58.0), (80.0, 80.0)])
-
+    search_area = Polygon(
+        [(570149, 7032824), (570058, 7032683), (569976, 7032856), (570074, 7032931), (570219, 7032822)])
+    plt.plot(*search_area[0], "go")
+    search_area.draw(False)
     decompose(search_area)
     combine(search_area)  # not implemented yet...
 
-    path = find_path(search_area, (1, -1), 1)
+    path = find_path(search_area, search_area[0], 5)
+    plt.plot(*zip(*path))
+    plt.show()
