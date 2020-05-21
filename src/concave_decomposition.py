@@ -6,7 +6,6 @@ import numpy as np
 
 
 def decompose(polygon: Polygon):
-    print("runs")
     number_of_vertices = len(polygon)
     number_of_concave_vertices = polygon.number_of_concave_vertices
     if number_of_concave_vertices == 0:
@@ -35,7 +34,6 @@ def decompose(polygon: Polygon):
             min_sum_of_widths = width
 
     polygon.sub_polygons = min_sum_of_widths_pair
-    print(min_sum_of_widths_pair)
     for poly in min_sum_of_widths_pair:
         decompose(poly)
 

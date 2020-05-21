@@ -83,12 +83,9 @@ class Polygon:
             if j == i or j == self.prev(i) or j == self.next(i):
                 continue
             polygon_line = [self[j], self[j + 1]]
-            print(split_line)
             
             intersects = line_intersection(polygon_line, split_line)
-            print("inter", intersects)
             if intersects is not None:
-                print(intersects)
                 if intersection_at is None \
                         or distance_between(intersects, vertex) < distance_between(intersection_at, vertex):
                     intersection_at = intersects
