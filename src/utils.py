@@ -1,11 +1,13 @@
 import math
 import numpy as np
 
+ZERO = 1e-2
+
 
 def to_gradient(line):
     dy = line[1][1] - line[0][1]
     dx = line[1][0] - line[0][0]
-    gradient = [0.0, 0.0] if abs(dx) < 1e-8 and abs(dy) < 1e-8 else (np.array([dx, dy]) / np.sqrt(
+    gradient = [0.0, 0.0] if abs(dx) < ZERO and abs(dy) < ZERO else (np.array([dx, dy]) / np.sqrt(
         dx ** 2 + dy ** 2))
     return gradient
 
@@ -29,7 +31,7 @@ def intersects_at(line1, line2):
     D = L1[0] * L2[1] - L1[1] * L2[0]
     Dx = L1[2] * L2[1] - L1[1] * L2[2]
     Dy = L1[0] * L2[2] - L1[2] * L2[0]
-    if abs(D) > 1e-8:
+    if abs(D) > ZERO:
         x = Dx / D
         y = Dy / D
         if np.any([np.isclose([x, y], point) for point in [*line1, *line2]]):
@@ -45,7 +47,7 @@ def intersection(polygon1, polygon2):
 
     for p1 in points1:
         for p2 in points2:
-            if distance_between(p1, p2) < 1e-8:
+            if distance_between(p1, p2) < ZERO:
                 intersections.append(p1)
                 break
 
