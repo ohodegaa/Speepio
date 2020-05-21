@@ -9,9 +9,6 @@ def decompose(polygon: Polygon):
     print("runs")
     number_of_vertices = len(polygon)
     number_of_concave_vertices = polygon.number_of_concave_vertices
-    print(number_of_concave_vertices)
-    print(number_of_vertices)
-    polygon.draw(False)
     if number_of_concave_vertices == 0:
         return
 
@@ -23,13 +20,9 @@ def decompose(polygon: Polygon):
                     or np.allclose(vertex_i, polygon[j + 1]):
                 continue
             gradient = to_gradient([polygon[j], polygon[j + 1]])
-            print(gradient)
             split_line = np.array([vertex_i, np.add(vertex_i, gradient * 1000)])
-            print(split_line)
-            plt.plot(*zip(*split_line))
-            plt.show()
+
             split_result = polygon.split(split_line, i)
-            print(split_result)
             if split_result is not None:
                 sub_polygon_pairs.append(split_result)
 
