@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 from time import sleep
 from .utils import *
 
-ZERO = 1e-8
-
 
 class PathFinder:
     polygon = None
