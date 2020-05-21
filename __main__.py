@@ -16,13 +16,13 @@ app.config["DEBUG"] = True
 def fromJson(path):
     newPath = []
     for x in path:
-        newPath.append((round(x["Northing"]), round(x["Easting"])))
+        newPath.append((round(x["Easting"]), round(x["Northing"])))
     return newPath
 
 def toJson(path):
     json_path = []
     for x in range(1, len(path), 1):
-        json_path.append({"Northing": path[x][0], "Easting": path[x][1]})
+        json_path.append({"Easting": path[x][0], "Northing": path[x][1]})
     return json_path
 
 @app.route('/', methods=['POST'])
