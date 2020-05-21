@@ -19,8 +19,10 @@ def decompose(polygon: Polygon):
                     or np.allclose(vertex_i, polygon[j + 1]):
                 continue
             gradient = to_gradient([polygon[j], polygon[j + 1]])
-            split_line = np.array([vertex_i, np.add(vertex_i, gradient * 1000)])
-
+            split_line = np.array([vertex_i, np.add(vertex_i, gradient*1000)])
+            #plt.plot(*vertex_i, "go")
+            #plt.plot(*zip(*split_line), "r-")
+            #polygon.draw(True)
             split_result = polygon.split(split_line, i)
             if split_result is not None:
                 sub_polygon_pairs.append(split_result)
