@@ -40,6 +40,8 @@ def line_intersection(line1, line2):
     d = (det(*line1), det(*line2))
     x = det(d, xdiff) / div
     y = det(d, ydiff) / div
+    if np.any([np.isclose([x, y], point) for point in line2]):
+        return None
     return x, y
 
 
@@ -52,7 +54,7 @@ def intersects_at(line1, line2):
     if abs(D) > 0.0:
         x = Dx / D
         y = Dy / D
-        if np.any([np.isclose([x, y], point) for point in line2]):
+        if np.any([abs(x - point[0]) < ZERO and abs(y - point[1]) < ZERO for point in line1]):
             return None
         return x, y
     else:

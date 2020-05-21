@@ -85,6 +85,7 @@ class Polygon:
             polygon_line = [self[j], self[j + 1]]
             
             intersects = intersects_at(polygon_line, split_line)
+
             if intersects is not None:
                 if intersection_at is None \
                         or distance_between(intersects, vertex) < distance_between(intersection_at, vertex):
