@@ -35,7 +35,7 @@ def decompose(polygon: Polygon):
             min_sum_of_widths = width
 
     polygon.sub_polygons = min_sum_of_widths_pair
-
+    print(min_sum_of_widths_pair)
     for poly in min_sum_of_widths_pair:
         decompose(poly)
 
