@@ -135,8 +135,14 @@ class PathFinder:
         return False
 
 
+def drit(poly1, poly2):
+    poly1.draw(False)
+    poly2.draw(True, "r")
+
+
 def find_path(polygon: Polygon, start_point, footprint_width):
     sub_polygons = polygon.get_all_sub_polygons()
+    [drit(polygon, poly) for poly in sub_polygons]
 
     path_indices = [i for i in range(len(sub_polygons))]
 

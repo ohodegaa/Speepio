@@ -188,7 +188,7 @@ class Polygon:
             bc = np.subtract(c, b)
             ab = np.subtract(b, a)
             cross_product = -np.cross(ab, bc)
-            if cross_product < 0:
+            if cross_product < ZERO:
                 self.concave_vertices.append(self[i])
                 self.concave_vertex_indices.append(i)
 

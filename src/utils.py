@@ -56,6 +56,10 @@ def intersects_at(line1, line2):
         y = Dy / D
         if np.any([abs(x - point[0]) < ZERO and abs(y - point[1]) < ZERO for point in line1]):
             return None
+
+        if abs(distance_between(line1[0], line1[1]) - (
+                distance_between(line1[0], [x, y]) + distance_between(line1[1], [x, y]))) > ZERO:
+            return None
         return x, y
     else:
         return None

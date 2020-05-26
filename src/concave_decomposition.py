@@ -5,10 +5,13 @@ from shapely.geometry import LineString, MultiLineString, GeometryCollection, bo
 import numpy as np
 
 
-def decompose(polygon: Polygon):
+def decompose(polygon: Polygon, root_poly=None):
     number_of_vertices = len(polygon)
     number_of_concave_vertices = polygon.number_of_concave_vertices
+    #root_poly.draw(False)
+    #polygon.draw(True, "r")
     if number_of_concave_vertices == 0:
+        print("Convex")
         return
 
     sub_polygon_pairs = []
@@ -19,10 +22,10 @@ def decompose(polygon: Polygon):
                     or np.allclose(vertex_i, polygon[j + 1]):
                 continue
             gradient = to_gradient([polygon[j], polygon[j + 1]])
-            split_line = np.array([vertex_i, np.add(vertex_i, gradient*1000)])
-            #plt.plot(*vertex_i, "go")
-            #plt.plot(*zip(*split_line), "r-")
-            #polygon.draw(True)
+            split_line = np.array([vertex_i, np.add(vertex_i, gradient * 1000)])
+            # plt.plot(*vertex_i, "go")
+            # plt.plot(*zip(*split_line), "r-")
+            # polygon.draw(True)
             split_result = polygon.split(split_line, i)
             if split_result is not None:
                 sub_polygon_pairs.append(split_result)
@@ -36,8 +39,9 @@ def decompose(polygon: Polygon):
             min_sum_of_widths = width
 
     polygon.sub_polygons = min_sum_of_widths_pair
+
     for poly in min_sum_of_widths_pair:
-        decompose(poly)
+        decompose(poly, root_poly)
 
 
 def combine(polygon: Polygon):
