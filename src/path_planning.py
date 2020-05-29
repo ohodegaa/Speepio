@@ -111,14 +111,14 @@ class PathFinder:
     def generate_side_edge(self, side, forward_edge=False):
 
         traveled_up = 0.0
-        while self.footprint_width - traveled_up > ZERO:
+        while self.footprint_width - traveled_up > 0.0:
             current_edge = [self.polygon[self.get_vertex_index(side)],
                             self.polygon[self.get_next_vertex_index(side)]]
             gradient = to_gradient(current_edge)
 
-            inner_cos = np.dot(self.sweep_gradient, gradient) / (1 * 1)
+            inner_cos = np.dot(self.sweep_gradient, gradient)
             required_dist = (self.footprint_width - traveled_up) / inner_cos \
-                if inner_cos > ZERO else float("inf")
+                if inner_cos > 0.0 else float("inf")
             max_allowed_dist = distance_between(self.get_vertex(side), current_edge[1])
             dist = min(required_dist, max_allowed_dist)
 
@@ -126,7 +126,7 @@ class PathFinder:
                 self.set_vertex_index(side, self.get_next_vertex_index(side))
             self.set_vertex(side, self.get_vertex(side) + np.multiply(gradient, dist))
             traveled_up += dist * inner_cos
-            if forward_edge or self.footprint_width - traveled_up <= ZERO:
+            if forward_edge or self.footprint_width - traveled_up <= 0.0:
                 self.path.append(self.get_vertex(side))
 
             if self.is_done(self.get_vertex(side)):
@@ -136,13 +136,13 @@ class PathFinder:
 
 
 def drit(poly1, poly2):
-    poly1.draw(False)
-    poly2.draw(True, "r")
+    poly2.draw(False, "r")
 
 
 def find_path(polygon: Polygon, start_point, footprint_width):
     sub_polygons = polygon.get_all_sub_polygons()
     [drit(polygon, poly) for poly in sub_polygons]
+    polygon.draw()
 
     path_indices = [i for i in range(len(sub_polygons))]
 

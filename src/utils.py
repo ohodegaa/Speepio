@@ -2,7 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-ZERO = 1e-1
+ZERO = 1e-9
 
 
 def to_gradient(line):
@@ -24,25 +24,6 @@ def line(p1, p2):
     b = (p2[0] - p1[0])
     c = (p1[0] * p2[1] - p2[0] * p1[1])
     return a, b, -c
-
-
-def line_intersection(line1, line2):
-    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
-    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
-
-    def det(a, b):
-        return a[0] * b[1] - a[1] * b[0]
-
-    div = det(xdiff, ydiff)
-    if div == 0:
-        return None
-
-    d = (det(*line1), det(*line2))
-    x = det(d, xdiff) / div
-    y = det(d, ydiff) / div
-    if np.any([np.isclose([x, y], point) for point in line2]):
-        return None
-    return x, y
 
 
 def intersects_at(line1, line2):
